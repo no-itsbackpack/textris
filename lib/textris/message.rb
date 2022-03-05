@@ -124,6 +124,7 @@ module Textris
     def parse_content(content)
       content = content.to_s
       content = content.rstrip
+      content = CGI.unescapeHTML(content)
 
       content
     end

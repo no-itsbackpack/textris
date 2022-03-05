@@ -137,6 +137,15 @@ describe Textris::Message do
 
         expect(message.content).to eq("  a b. c")
       end
+
+      it 'unescapes html entities' do
+        message = Textris::Message.new(
+          :content => "a&#39;b&#39;c&#39;d",
+          :from    => 'X',
+          :to      => '+48 111 222 333')
+
+        expect(message.content).to eq("a'b'c'd")
+      end
     end
 
     it 'raises if :to not provided' do
@@ -186,7 +195,7 @@ describe Textris::Message do
 
   describe '#content' do
     before do
-      class Textris::Base::RenderingController
+      class ApplicationController < ActionController::Base
         def initialize(*args)
         end
       end
